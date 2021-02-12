@@ -12,29 +12,41 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
-        HStack {
-        Text("Watching")
-            .font(.system(size: 28, weight: .bold))
-            
-        Spacer()
-        
-            AvatarView(showProfile: $showProfile)
-        }
-        .padding(.horizontal)
-        .padding(.top, 30)
+            HStack {
+                Text("Watching")
+                    .font(.system(size: 28, weight: .bold))
+                
+                Spacer()
+                
+                AvatarView(showProfile: $showProfile)
+            }
+            .padding(.horizontal)
+            .padding(.top, 30)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 
-                HStack(spacing: 30) {
+                HStack(spacing: 20) {
                     ForEach(sectionData) { item in
-                        SectionView(section: item)
+                        
+                        GeometryReader { geometry in
+                            SectionView(section: item)
+                                .rotation3DEffect(Angle(degrees:
+                                                            Double(geometry.frame(in: .global).minX - 30) / -20
+                                                    
+                                ), axis: (x: 0, y: 10.0, z: 0))
+                            
+                        }
+                        .frame(width: 275, height: 275)
                     }
-                }.padding(30)
+                    
+                }
+                
+                .padding(30)
                 .padding(.bottom, 30)
             }
             
             Spacer()
-       
+            
         }
     }
 }
@@ -89,5 +101,5 @@ let sectionData = [
     Section(title: "Prototype designs in SwiftUI", text: "18 Sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card1")), color: Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1))),
     Section(title: "Build a SwiftUI app", text: "20 Sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card4")), color: Color(#colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1))),
     Section(title: "SwiftUI Advanced", text: "20 Sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card3")), color: Color(#colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1))),
-
+    
 ]
