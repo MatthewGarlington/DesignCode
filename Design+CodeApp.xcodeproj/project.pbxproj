@@ -56,10 +56,10 @@
 			children = (
 				6B9B2F2625D6BF66008A6614 /* Design_CodeAppApp.swift */,
 				6B9B2F2825D6BF66008A6614 /* ContentView.swift */,
+				6B9B2F3725D6FFC9008A6614 /* MenuView.swift */,
 				6B9B2F2A25D6BF68008A6614 /* Assets.xcassets */,
 				6B9B2F2F25D6BF68008A6614 /* Info.plist */,
 				6B9B2F2C25D6BF68008A6614 /* Preview Content */,
-				6B9B2F3725D6FFC9008A6614 /* MenuView.swift */,
 			);
 			path = "Design+CodeApp";
 			sourceTree = "<group>";
