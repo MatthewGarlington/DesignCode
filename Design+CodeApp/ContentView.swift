@@ -59,7 +59,7 @@ struct ContentView: View {
                 .rotationEffect(Angle(degrees: showCard ? -5 : 0))
                 .rotation3DEffect(Angle(degrees: showCard ? 0 : 5), axis: (x: 10.0, y: 0, z: 0))
                 .blendMode(.hardLight)
-                .animation(.easeInOut)
+            
                 
             
             CardView()
@@ -97,7 +97,7 @@ struct ContentView: View {
                 )
  
           
-            BottomCardView()
+            BottomCardView(show: $showCard)
                 .offset(x: 0, y: showCard ? 360 : 1000)
                 .offset(y: bottomState.height)
                 .blur(radius: show ? 20 : 0)
@@ -207,6 +207,8 @@ struct TitleView: View {
 }
 
 struct BottomCardView: View {
+    @Binding var show: Bool
+    
     var body: some View {
         VStack(spacing: 20) {
             Rectangle()
@@ -218,6 +220,24 @@ struct BottomCardView: View {
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
                 .font(.subheadline)
+            HStack(spacing: 20) {
+                RingView(color1: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), color2: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), width: 88, height: 88, percent: 78, show: $show)
+                    .animation(Animation.easeInOut)
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("SwiftUI").fontWeight(.bold)
+                    
+                    Text("12 of 12 sections completed\n10 hours spent so far")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                        .lineSpacing(4)
+                }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(20)
+                .shadow(color: .black.opacity(0.2), radius: 20, x: 0, y: 10)
+                
+            }
                 
             Spacer()
             
