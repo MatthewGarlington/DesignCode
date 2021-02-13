@@ -5,4 +5,11 @@
 //  Created by Matthew Garlington on 2/12/21.
 //
 
-import Foundation
+import SwiftUI
+import Combine
+
+class UpdateStore: ObservableObject {
+    
+    @Published var updates: [Update] = updateData
+    
+}
