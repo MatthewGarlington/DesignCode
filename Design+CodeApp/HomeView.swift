@@ -33,7 +33,7 @@ struct HomeView: View {
                     
                 }
                 .sheet(isPresented: $showUpdate) {
-                    Text("Hello World!")
+                   UpdateList()
                 }
             }
             .padding(.horizontal)

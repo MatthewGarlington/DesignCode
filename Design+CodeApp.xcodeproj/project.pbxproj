@@ -16,6 +16,7 @@
 		6B9B2F3C25D71F1D008A6614 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F3B25D71F1D008A6614 /* HomeView.swift */; };
 		6B9B2F3E25D73CB1008A6614 /* UpdateList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F3D25D73CB1008A6614 /* UpdateList.swift */; };
 		6B9B2F4025D7572C008A6614 /* UpdateDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F3F25D7572C008A6614 /* UpdateDetail.swift */; };
+		6B9B2F4225D75EFD008A6614 /* UpdateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F4125D75EFD008A6614 /* UpdateStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		6B9B2F3B25D71F1D008A6614 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6B9B2F3D25D73CB1008A6614 /* UpdateList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateList.swift; sourceTree = "<group>"; };
 		6B9B2F3F25D7572C008A6614 /* UpdateDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDetail.swift; sourceTree = "<group>"; };
+		6B9B2F4125D75EFD008A6614 /* UpdateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				6B9B2F3725D6FFC9008A6614 /* MenuView.swift */,
 				6B9B2F3D25D73CB1008A6614 /* UpdateList.swift */,
 				6B9B2F3F25D7572C008A6614 /* UpdateDetail.swift */,
+				6B9B2F4125D75EFD008A6614 /* UpdateStore.swift */,
 				6B9B2F2A25D6BF68008A6614 /* Assets.xcassets */,
 				6B9B2F2F25D6BF68008A6614 /* Info.plist */,
 				6B9B2F2C25D6BF68008A6614 /* Preview Content */,
@@ -157,6 +160,7 @@
 				6B9B2F2925D6BF66008A6614 /* ContentView.swift in Sources */,
 				6B9B2F3825D6FFC9008A6614 /* MenuView.swift in Sources */,
 				6B9B2F3E25D73CB1008A6614 /* UpdateList.swift in Sources */,
+				6B9B2F4225D75EFD008A6614 /* UpdateStore.swift in Sources */,
 				6B9B2F3A25D70CCD008A6614 /* Home.swift in Sources */,
 				6B9B2F3C25D71F1D008A6614 /* HomeView.swift in Sources */,
 				6B9B2F2725D6BF66008A6614 /* Design_CodeAppApp.swift in Sources */,
