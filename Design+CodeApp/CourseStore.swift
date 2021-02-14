@@ -6,15 +6,24 @@
 //
 
 import SwiftUI
+import Contentful
 
-struct CourseStore: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
 
-struct CourseStore_Previews: PreviewProvider {
-    static var previews: some View {
-        CourseStore()
+let client = Client(spaceId: "jeq8io41y7m4", accessToken: "GgbVB3YT5SpC4Je6egEp9RcWs9lkPispB6XWEgEunlw")
+
+func getArray() {
+    
+    let query = Query.where(contentTypeId: "course")
+    
+    client.fetchArray(of: Entry.self, matching: query) { result in
+        
+        print(result)
+        
+        
+        
+        
+        
     }
+    
+    
 }
