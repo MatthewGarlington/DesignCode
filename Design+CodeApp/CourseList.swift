@@ -9,30 +9,48 @@ import SwiftUI
 
 struct CourseList: View {
 
-  @State var courses = courseData
+    @State var courses = courseData
+    @State var active = false
     
     
     var body: some View {
-        ScrollView {
+        ZStack {
             
-            VStack(spacing: 30) {
-                Text("Courses")
-                    .font(.largeTitle)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 30)
-                    .padding(.top, 30)
-                ForEach(courses.indices, id: \.self) { index in
-                    GeometryReader { geometry in
-                        CourseView(show: self.$courses[index].show, course: self.courses[index])
-                            .offset(y: self.courses[index].show ? -geometry.frame(in: .global).minY : 0)
+            // Sets background to change colors upon full screen tap gesture
+            
+            Color.black.opacity(active ? 0.5 : 0)
+                .animation(.linear)
+                .edgesIgnoringSafeArea(.all)
+            
+            ScrollView {
+                
+                VStack(spacing: 30) {
+                    Text("Courses")
+                        .font(.largeTitle)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 30)
+                        .padding(.top, 30)
+                        // Blurs the top title upon hitting the tap gesture to active on selecting a card
+                        .blur(radius: active ? 20 : 0)
+                    ForEach(courses.indices, id: \.self) { index in
+                        GeometryReader { geometry in
+                            CourseView(show: self.$courses[index].show, active: self.$active, course: self.courses[index])
+                                .offset(y: self.courses[index].show ? -geometry.frame(in: .global).minY : 0)
+                        }
+                        .frame(height : 280)
+                        .frame(maxWidth: self.courses[index].show ? .infinity : screen.width - 60)
+                        // This ZIndex Helps correct the Layout of cards showing on top of others during animation
+                        .zIndex(self.courses[index].show ? 1 : 0)
                     }
-                    .frame(height : 280)
-                    .frame(maxWidth: self.courses[index].show ? .infinity : screen.width - 60)
                 }
+                .frame(width: screen.width)
+                .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+                
+                // Upon gesture tap to the full view, the status bar will be hidden
+                .statusBar(hidden: active ? true : false)
+                .animation(.linear)
             }
-            .frame(width: screen.width)
-            .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
         }
    
     }
@@ -46,6 +64,7 @@ struct CourseList_Previews: PreviewProvider {
 
 struct CourseView: View {
     @Binding var show: Bool
+    @Binding var active: Bool
     var course: Course
     
     
@@ -113,6 +132,7 @@ struct CourseView: View {
         
             .onTapGesture {
                 self.show.toggle()
+                self.active.toggle()
             }
         }
         .frame(height: show ? screen.height : 280)
