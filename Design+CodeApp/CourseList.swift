@@ -193,6 +193,15 @@ struct CourseView: View {
                     
                 }
             }
+            
+            if show {
+                // When this is enabled, and the self.activeView = value.translation is disabled, there will not be gestures but will be able to present a scrollable detail view from CourseDetail and exited without gestures. 
+                
+//                CourseDetail(course: course, show: $show, active: $active, activeIndex: $activeIndex)
+//                    .background(Color.white)
+//                    .animation(nil)
+                
+            }
         }
         .frame(height: show ? screen.height : 280)
         // The added scale effect is for the drag gesture of the animation
