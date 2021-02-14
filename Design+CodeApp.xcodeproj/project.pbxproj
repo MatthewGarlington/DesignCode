@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B298BFE25D98D07006F728A /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298BFD25D98D07006F728A /* DataStore.swift */; };
 		6B9B2F2725D6BF66008A6614 /* Design_CodeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2625D6BF66008A6614 /* Design_CodeAppApp.swift */; };
 		6B9B2F2925D6BF66008A6614 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2825D6BF66008A6614 /* ContentView.swift */; };
 		6B9B2F2B25D6BF68008A6614 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2A25D6BF68008A6614 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B298BFD25D98D07006F728A /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		6B9B2F2325D6BF66008A6614 /* Design+CodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Design+CodeApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B9B2F2625D6BF66008A6614 /* Design_CodeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design_CodeAppApp.swift; sourceTree = "<group>"; };
 		6B9B2F2825D6BF66008A6614 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				6B9B2F3F25D7572C008A6614 /* UpdateDetail.swift */,
 				6B9B2F4125D75EFD008A6614 /* UpdateStore.swift */,
 				6BA973C425D9766500D61339 /* Data.swift */,
+				6B298BFD25D98D07006F728A /* DataStore.swift */,
 				6BA973C625D9796600D61339 /* PostList.swift */,
 				6BA973B825D7FCC300D61339 /* TabBar.swift */,
 				6BA973BC25D85CEA00D61339 /* Modifers.swift */,
@@ -182,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BA973BB25D80E6500D61339 /* RingView.swift in Sources */,
+				6B298BFE25D98D07006F728A /* DataStore.swift in Sources */,
 				6BA973C725D9796600D61339 /* PostList.swift in Sources */,
 				6BA973B925D7FCC300D61339 /* TabBar.swift in Sources */,
 				6BA973BD25D85CEA00D61339 /* Modifers.swift in Sources */,
