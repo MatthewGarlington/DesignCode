@@ -23,6 +23,11 @@ struct CourseList: View {
                 .animation(.linear)
                 .edgesIgnoringSafeArea(.all)
             
+                .onAppear {
+                    
+                    getArray()
+                    
+                }
             ScrollView {
                 
                 VStack(spacing: 30) {
