@@ -12,14 +12,14 @@ struct CourseList: View {
     @State var courses = courseData
     @State var active = false
     @State var activeIndex = -1
-    
+    @State var activeView = CGSize.zero
     
     var body: some View {
         ZStack {
             
             // Sets background to change colors upon full screen tap gesture
             
-            Color.black.opacity(active ? 0.5 : 0)
+            Color.black.opacity(Double(self.activeView.height) / 500)
                 .animation(.linear)
                 .edgesIgnoringSafeArea(.all)
             
@@ -38,11 +38,12 @@ struct CourseList: View {
                         GeometryReader { geometry in
                             CourseView(
                                 show: self.$courses[index].show,
-                                active: self.$active, course: self.courses[index],
+                                active: self.$active, activeIndex: self.$activeIndex, course: self.courses[index],
                                 index: index,
-                                activeIndex: self.$activeIndex)
+                                // Added the ability to change the color of the background upon dragging
+                                activeView: self.$activeView)
                                 .offset(y: self.courses[index].show ? -geometry.frame(in: .global).minY : 0)
-                                // The Following 3 animations occur in the other cards except the card that is pressed 
+                                // The Following 3 animations occur in the other cards except the card that is pressed
                                 .opacity(self.activeIndex != index && self.active ? 0 : 1)
                                 .scaleEffect(self.activeIndex != index && self.active ? 0.5 : 1)
                                 .offset(x: self.activeIndex != index && self.active ? screen.width : 0)
@@ -74,9 +75,12 @@ struct CourseList_Previews: PreviewProvider {
 struct CourseView: View {
     @Binding var show: Bool
     @Binding var active: Bool
+    @Binding var activeIndex: Int
     var course: Course
     var index: Int
-    @Binding var activeIndex: Int
+    @Binding var activeView: CGSize
+   
+    
     
     
     var body: some View {
@@ -138,8 +142,45 @@ struct CourseView: View {
             .padding(show ? 30 : 0)
             .frame(maxWidth: show ? .infinity : screen.width - 60, maxHeight: show ? 460 :  CGFloat(280))
             .background(Color(course.color))
-            .clipShape(RoundedRectangle(cornerRadius: 30, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/))
+            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
             .shadow(color: Color(course.color).opacity(0.3), radius: 20, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 20)
+            
+            // This gives the ability for the translation value on the drag gesture to be represented upon dragging
+            .gesture(
+                
+                /// The Show condistional accompanied by the : nil at the end, give the ability for only the card to show the drag gesture upon selection
+                show ?
+                DragGesture().onChanged  { value in
+                    
+                    // This guard statement allows the full size card to be dismissed after dragging to a translation height of 300
+                    guard value.translation.height < 300 else { return }
+                    
+                    // This guard statement lets the drag animations to not take place upon dragging up on the screen
+                    
+                    guard value.translation.height > 0 else { return }
+                    
+                    self.activeView = value.translation
+                    
+                }
+                
+                .onEnded { value in
+            
+                // This tells the full screen card view to close upon dragging to 50
+                   if self.activeView.height > 50 {
+                        
+                        self.show = false
+                        self.active = false
+                        self.activeIndex = -1
+                        
+                    }
+                    
+                    self.activeView = .zero
+                    
+                    
+                }
+                : nil
+            
+            )
         
             .onTapGesture {
                 self.show.toggle()
@@ -154,7 +195,51 @@ struct CourseView: View {
             }
         }
         .frame(height: show ? screen.height : 280)
+        // The added scale effect is for the drag gesture of the animation
+        .scaleEffect(1 - self.activeView.height / 1000)
+        // This allows the cards to rotate upon the drag gesture to either side
+        .rotation3DEffect(Angle(degrees: Double(self.activeView.height / 10)),
+            axis: (x: 0.0, y: 10.0, z: 0.0))
+        .hueRotation(Angle(degrees: Double(self.activeView.height)))
         .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+        
+        // By Placing this code in the ZStack Container as well it gives the ability for the user to drag on the text as well as the card therefore fixing the scrollview issue
+        // This gives the ability for the translation value on the drag gesture to be represented upon dragging
+        .gesture(
+            
+            /// The Show condistional accompanied by the : nil at the end, give the ability for only the card to show the drag gesture upon selection
+            show ?
+            DragGesture().onChanged  { value in
+                
+                // This guard statement allows the full size card to be dismissed after dragging to a translation height of 300
+                guard value.translation.height < 300 else { return }
+                
+                // This guard statement lets the drag animations to not take place upon dragging up on the screen
+                
+                guard value.translation.height > 0 else { return }
+                
+                self.activeView = value.translation
+                
+            }
+            
+            .onEnded { value in
+        
+            // This tells the full screen card view to close upon dragging to 50
+               if self.activeView.height > 50 {
+                    
+                    self.show = false
+                    self.active = false
+                    self.activeIndex = -1
+                    
+                }
+                
+                self.activeView = .zero
+                
+                
+            }
+            : nil
+        
+        )
         .ignoresSafeArea(.all)
     }
 }
