@@ -24,7 +24,12 @@ class Api {
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
-        let posts = try! JSONDecoder().decode([Post].self, from: data!)
+            
+            
+        // Prevent Crashing by taking away the ! in data below with adding guard let 
+        guard let data = data else { return }
+            
+        let posts = try! JSONDecoder().decode([Post].self, from: data)
             
            
             // Using the Dispatch call allows to run they API while continue to use the app 
