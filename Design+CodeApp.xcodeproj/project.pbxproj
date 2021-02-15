@@ -14,6 +14,7 @@
 		6B298C0F25DABFBF006F728A /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B298C0E25DABFBF006F728A /* SDWebImageSwiftUI */; };
 		6B298C1125DAC5BE006F728A /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298C1025DAC5BE006F728A /* BlurView.swift */; };
 		6B298C1325DADF4D006F728A /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298C1225DADF4D006F728A /* Buttons.swift */; };
+		6B298C1725DB116B006F728A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298C1625DB116B006F728A /* LoginView.swift */; };
 		6B9B2F2725D6BF66008A6614 /* Design_CodeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2625D6BF66008A6614 /* Design_CodeAppApp.swift */; };
 		6B9B2F2925D6BF66008A6614 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2825D6BF66008A6614 /* ContentView.swift */; };
 		6B9B2F2B25D6BF68008A6614 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2A25D6BF68008A6614 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		6B298C0225D9A482006F728A /* CourseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStore.swift; sourceTree = "<group>"; };
 		6B298C1025DAC5BE006F728A /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		6B298C1225DADF4D006F728A /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		6B298C1625DB116B006F728A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6B9B2F2325D6BF66008A6614 /* Design+CodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Design+CodeApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B9B2F2625D6BF66008A6614 /* Design_CodeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design_CodeAppApp.swift; sourceTree = "<group>"; };
 		6B9B2F2825D6BF66008A6614 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				6B9B2F2625D6BF66008A6614 /* Design_CodeAppApp.swift */,
 				6B9B2F2825D6BF66008A6614 /* ContentView.swift */,
+				6B298C1625DB116B006F728A /* LoginView.swift */,
 				6BA973BA25D80E6500D61339 /* RingView.swift */,
 				6B9B2F3925D70CCD008A6614 /* Home.swift */,
 				6BA973C025D86E9100D61339 /* CourseList.swift */,
@@ -227,6 +230,7 @@
 				6BA973C325D96BA700D61339 /* CourseDetail.swift in Sources */,
 				6B298C1325DADF4D006F728A /* Buttons.swift in Sources */,
 				6B9B2F3C25D71F1D008A6614 /* HomeView.swift in Sources */,
+				6B298C1725DB116B006F728A /* LoginView.swift in Sources */,
 				6B9B2F2725D6BF66008A6614 /* Design_CodeAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
