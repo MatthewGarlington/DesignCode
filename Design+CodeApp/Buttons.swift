@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+// This adds haptic feedback functionaility adding a type to state type of haptic feedback on call
+
+func haptic(type: UINotificationFeedbackGenerator.FeedbackType) {
+    
+    UINotificationFeedbackGenerator().notificationOccurred(type)
+}
+
+// This adds a small impact haptic feedback without the full set for more subtle feedback
+
+func impact(style: UIImpactFeedbackGenerator.FeedbackStyle) {
+    
+    UIImpactFeedbackGenerator(style: style).impactOccurred()
+}
+
 struct Buttons: View {
     
     var body: some View {
@@ -79,12 +93,18 @@ struct RectangleButton: View {
                 // This increases the frame through the scale effect above upon being tapped
                 
                 LongPressGesture(minimumDuration: 0.5, maximumDistance: 10).onChanged { value in
-                    
+
+                
                     self.tap = true
+                    // Adding a impact haptic on press
+                    impact(style: .heavy)
+                    
                     // This lets the button return to orginal size after being tapped
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         
                         self.tap = false
+                        
+        
                         
                     }
                     
@@ -94,7 +114,11 @@ struct RectangleButton: View {
                     
                     // This gives the ability to animate the drop shadows above
                     
+                    
                     self.press.toggle()
+                    
+                    // this creates haptic feedback upon success
+                    haptic(type: .success)
                     
                 }
                 
