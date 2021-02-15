@@ -43,15 +43,19 @@ class CourseStore: ObservableObject {
     
     // Make the Contentful API Call
     init() {
+        // Add color literal array to randomize colors
+        let colors = [#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1), #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1) ]
         
         getArray(id: "course") { (items) in
             items.forEach { (item) in
                 // Adding the data from the API to our courses example data 
                 self.courses.append(Course(title: item.fields["title"] as! String,
                                            subtitle: item.fields["subtitle"] as! String,
-                                           image: #imageLiteral(resourceName: "Background1-Dark"),
+                                           // Gives the ability to use SDWebImageSwiftUI to process a URL String
+                                           image: item.fields.linkedAsset(at: "image")?.url ?? URL(string: "https://dl.dropbox.com/s/9vvklb94vpaafxw/Card3%402x.png?dl=0")!,
                                            logo: #imageLiteral(resourceName: "Logo1"),
-                                           color: #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1),
+                                           // add array of colors from above to color and set to random
+                                           color: colors.randomElement()!,
                                            show: false))
                 
             }
