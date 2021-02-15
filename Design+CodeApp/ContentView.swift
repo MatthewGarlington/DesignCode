@@ -233,7 +233,7 @@ struct BottomCardView: View {
                         .lineSpacing(4)
                 }
                 .padding()
-                .background(Color.white)
+                .background(Color("background3"))
                 .cornerRadius(20)
                 .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
                 
@@ -246,7 +246,7 @@ struct BottomCardView: View {
         .padding(.top, 8)
         .padding(.horizontal, 20)
         .frame(maxWidth: .infinity)
-        .frame(height: 700)
+        .frame(height: 800)
         // Adding the BlurView Modifer to give a glass appearance 
         .background(BlurView(style: .systemThinMaterial))
         .cornerRadius(30)
