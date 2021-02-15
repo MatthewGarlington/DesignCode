@@ -12,6 +12,7 @@
 		6B298C0325D9A482006F728A /* CourseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298C0225D9A482006F728A /* CourseStore.swift */; };
 		6B298C0C25DABA34006F728A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6B298C0B25DABA34006F728A /* SDWebImage */; };
 		6B298C0F25DABFBF006F728A /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B298C0E25DABFBF006F728A /* SDWebImageSwiftUI */; };
+		6B298C1125DAC5BE006F728A /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298C1025DAC5BE006F728A /* BlurView.swift */; };
 		6B9B2F2725D6BF66008A6614 /* Design_CodeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2625D6BF66008A6614 /* Design_CodeAppApp.swift */; };
 		6B9B2F2925D6BF66008A6614 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2825D6BF66008A6614 /* ContentView.swift */; };
 		6B9B2F2B25D6BF68008A6614 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2A25D6BF68008A6614 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		6B298BFD25D98D07006F728A /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		6B298C0225D9A482006F728A /* CourseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStore.swift; sourceTree = "<group>"; };
+		6B298C1025DAC5BE006F728A /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		6B9B2F2325D6BF66008A6614 /* Design+CodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Design+CodeApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B9B2F2625D6BF66008A6614 /* Design_CodeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design_CodeAppApp.swift; sourceTree = "<group>"; };
 		6B9B2F2825D6BF66008A6614 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				6B298BFD25D98D07006F728A /* DataStore.swift */,
 				6BA973C625D9796600D61339 /* PostList.swift */,
 				6BA973B825D7FCC300D61339 /* TabBar.swift */,
+				6B298C1025DAC5BE006F728A /* BlurView.swift */,
 				6BA973BC25D85CEA00D61339 /* Modifers.swift */,
 				6B9B2F2A25D6BF68008A6614 /* Assets.xcassets */,
 				6BA973BE25D85F3C00D61339 /* Work_Sans */,
@@ -208,6 +211,7 @@
 				6BA973C725D9796600D61339 /* PostList.swift in Sources */,
 				6BA973B925D7FCC300D61339 /* TabBar.swift in Sources */,
 				6BA973BD25D85CEA00D61339 /* Modifers.swift in Sources */,
+				6B298C1125DAC5BE006F728A /* BlurView.swift in Sources */,
 				6B9B2F4025D7572C008A6614 /* UpdateDetail.swift in Sources */,
 				6BA973C125D86E9100D61339 /* CourseList.swift in Sources */,
 				6B298C0325D9A482006F728A /* CourseStore.swift in Sources */,
