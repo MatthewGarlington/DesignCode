@@ -14,6 +14,7 @@ struct LoginView: View {
     @State var isFocused = false
     @State var showAlert = false
     @State var alertMessage = "Something Went Wrong"
+    @State var isLoading = false
     
     
     func hideKeyBoard() {
@@ -95,11 +96,23 @@ struct LoginView: View {
                         
                         Button(action: {
                             
-                            self.showAlert = true
+                     
                             
                             // This allows the KeyBoard and Full screen when Login is hit to show alert and nothing else 
                             self.hideKeyBoard()
                             self.isFocused = false
+                            
+                            // Set the lottie animation to play when the login button is tapped
+                            
+                            self.isLoading = true
+                            
+                            
+                            // Fake Delay to not have alert message show before adding API Call
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                self.isLoading = false
+                                self.showAlert = true
+                            }
                             
                         }) {
                         Text("Log in")
@@ -128,6 +141,12 @@ struct LoginView: View {
                 // This gives the ability to hide the keyboard upon clicking outside of the email text field through the function created
                 self.hideKeyBoard()
             }
+            
+            if isLoading {
+                LoadingView()
+                
+            }
+            
         }
        
     }
