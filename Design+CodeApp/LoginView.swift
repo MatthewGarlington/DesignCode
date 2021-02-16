@@ -15,12 +15,47 @@ struct LoginView: View {
     @State var showAlert = false
     @State var alertMessage = "Something Went Wrong"
     @State var isLoading = false
+    @State var isSuccessful = false
     
+    
+    
+    func login() {
+        
+ 
+        
+        // This allows the KeyBoard and Full screen when Login is hit to show alert and nothing else
+        self.hideKeyBoard()
+        self.isFocused = false
+        
+        // Set the lottie animation to play when the login button is tapped
+        
+        self.isLoading = true
+        
+    
+        // Fake Delay to not have alert message show before adding API Call
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.isLoading = false
+            // Show SuccessView upon tapping after the two second delay or API call being made
+            
+            self.isSuccessful = true
+            
+            // Dismiss the SuccessView after 2 seconds to show fake success
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.isSuccessful = false
+            }
+        }
+        
+        
+    }
     
     func hideKeyBoard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         
     }
+    
+    
     
     var body: some View {
         ZStack {
@@ -95,25 +130,7 @@ struct LoginView: View {
                         Spacer()
                         
                         Button(action: {
-                            
-                     
-                            
-                            // This allows the KeyBoard and Full screen when Login is hit to show alert and nothing else 
-                            self.hideKeyBoard()
-                            self.isFocused = false
-                            
-                            // Set the lottie animation to play when the login button is tapped
-                            
-                            self.isLoading = true
-                            
-                            
-                            // Fake Delay to not have alert message show before adding API Call
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                self.isLoading = false
-                                self.showAlert = true
-                            }
-                            
+                            self.login()
                         }) {
                         Text("Log in")
                     }
@@ -142,8 +159,17 @@ struct LoginView: View {
                 self.hideKeyBoard()
             }
             
+            // Adding Loading View Upon Loading/ fake delay
             if isLoading {
                 LoadingView()
+
+            }
+            
+            // Add the SuccessView upon Success
+            
+            if isSuccessful {
+                
+                SuccessView()
                 
             }
             
