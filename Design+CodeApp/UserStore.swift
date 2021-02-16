@@ -6,15 +6,11 @@
 //
 
 import SwiftUI
+import Combine
 
-struct UserStore: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+class UserStore: ObservableObject {
+    @Published var isLogged = false
+    @Published var showLogin = false 
+    
 }
 
-struct UserStore_Previews: PreviewProvider {
-    static var previews: some View {
-        UserStore()
-    }
-}
