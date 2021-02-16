@@ -76,7 +76,7 @@ struct RectangleButton: View {
                     Image(systemName: "person.crop.circle")
                         .font(.system(size: 24, weight: .light))
                         // On The Long Press the icon is turned into a line using the press variable
-                        .foregroundColor(.white.opacity(press ? 0 : 1))
+                        .foregroundColor(Color.white.opacity(press ? 0 : 1))
                         .frame(width: press ? 64 : CGFloat(54), height: press ? 4 : CGFloat(50))
                         .background(Color(#colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)))
                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
