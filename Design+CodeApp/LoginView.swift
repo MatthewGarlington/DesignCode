@@ -50,6 +50,10 @@ struct LoginView: View {
                 
                 self.user.isLogged = true
                 
+                // Set User Defaults
+                
+                UserDefaults.standard.set(true, forKey: "isLogged")
+                
                 // Dismiss the SuccessView after 2 seconds to show fake success
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
