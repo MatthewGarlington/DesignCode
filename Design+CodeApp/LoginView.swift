@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct LoginView: View {
 
@@ -21,7 +22,7 @@ struct LoginView: View {
     
     func login() {
         
- 
+        
         
         // This allows the KeyBoard and Full screen when Login is hit to show alert and nothing else
         self.hideKeyBoard()
@@ -31,23 +32,29 @@ struct LoginView: View {
         
         self.isLoading = true
         
-    
-        // Fake Delay to not have alert message show before adding API Call
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             self.isLoading = false
-            // Show SuccessView upon tapping after the two second delay or API call being made
-            
-            self.isSuccessful = true
-            
-            // Dismiss the SuccessView after 2 seconds to show fake success
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.isSuccessful = false
+            if error != nil {
+                self.alertMessage = error?.localizedDescription ?? ""
+                self.showAlert = true
+                
+                
+            } else {
+                
+                // Show SuccessView upon tapping after the two second delay or API call being made
+                
+                self.isSuccessful = true
+                
+                // Dismiss the SuccessView after 2 seconds to show fake success
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    // Return to the screen and clear the fields 
+                    self.isSuccessful = false
+                    self.email = ""
+                    self.password = ""
+                }
             }
         }
-        
-        
     }
     
     func hideKeyBoard() {
