@@ -20,6 +20,7 @@
 		6B298C2325DC0DCB006F728A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298C2225DC0DCB006F728A /* LoadingView.swift */; };
 		6B58F06A25DC1316001E97C5 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B58F06825DC1316001E97C5 /* loading.json */; };
 		6B58F06B25DC1316001E97C5 /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B58F06925DC1316001E97C5 /* success.json */; };
+		6B58F06D25DC1A20001E97C5 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B58F06C25DC1A20001E97C5 /* SuccessView.swift */; };
 		6B9B2F2725D6BF66008A6614 /* Design_CodeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2625D6BF66008A6614 /* Design_CodeAppApp.swift */; };
 		6B9B2F2925D6BF66008A6614 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2825D6BF66008A6614 /* ContentView.swift */; };
 		6B9B2F2B25D6BF68008A6614 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B9B2F2A25D6BF68008A6614 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 		6B298C2225DC0DCB006F728A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6B58F06825DC1316001E97C5 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		6B58F06925DC1316001E97C5 /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
+		6B58F06C25DC1A20001E97C5 /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
 		6B9B2F2325D6BF66008A6614 /* Design+CodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Design+CodeApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B9B2F2625D6BF66008A6614 /* Design_CodeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design_CodeAppApp.swift; sourceTree = "<group>"; };
 		6B9B2F2825D6BF66008A6614 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				6B298C1025DAC5BE006F728A /* BlurView.swift */,
 				6B298C2025DBF879006F728A /* LottieView.swift */,
 				6B298C2225DC0DCB006F728A /* LoadingView.swift */,
+				6B58F06C25DC1A20001E97C5 /* SuccessView.swift */,
 				6B298C1225DADF4D006F728A /* Buttons.swift */,
 				6BA973BC25D85CEA00D61339 /* Modifers.swift */,
 				6B9B2F2A25D6BF68008A6614 /* Assets.xcassets */,
@@ -259,6 +262,7 @@
 				6BA973C325D96BA700D61339 /* CourseDetail.swift in Sources */,
 				6B298C1325DADF4D006F728A /* Buttons.swift in Sources */,
 				6B9B2F3C25D71F1D008A6614 /* HomeView.swift in Sources */,
+				6B58F06D25DC1A20001E97C5 /* SuccessView.swift in Sources */,
 				6B298C1725DB116B006F728A /* LoginView.swift in Sources */,
 				6B9B2F2725D6BF66008A6614 /* Design_CodeAppApp.swift in Sources */,
 			);
