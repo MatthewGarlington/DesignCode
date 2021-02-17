@@ -15,6 +15,7 @@ struct CourseList: View {
     @State var activeIndex = -1
     @State var activeView = CGSize.zero
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State var isScrollable = false
     
     var body: some View {
         GeometryReader { bounds in
@@ -28,6 +29,7 @@ struct CourseList: View {
            
                 ScrollView {
                     
+                    
                     VStack(spacing: 30) {
                         Text("Courses")
                             .font(.largeTitle)
@@ -37,6 +39,34 @@ struct CourseList: View {
                             .padding(.top, 30)
                             // Blurs the top title upon hitting the tap gesture to active on selecting a card
                             .blur(radius: active ? 20 : 0)
+                        
+                        // Using the store before usees the observable object of the Contentful API and Combine instead of from our on array
+                        VStack(spacing: 30) {
+                            ForEach(store.courses.indices, id: \.self) { index in
+                                GeometryReader { geometry in
+                                    CourseView(
+                                        show: self.$store.courses[index].show,
+                                        active: self.$active,
+                                        activeIndex: self.$activeIndex,
+                                        course: self.store.courses[index],
+                                        index: index,
+                                        // Added the ability to change the color of the background upon dragging
+                                        activeView: self.$activeView,
+                                        bounds: bounds,
+                                        isScrollable: self.$isScrollable)
+                                        .offset(y: self.store.courses[index].show ? -geometry.frame(in: .global).minY : 0)
+                                        // The Following 3 animations occur in the other cards except the card that is pressed
+                                        .opacity(self.activeIndex != index && self.active ? 0 : 1)
+                                        .scaleEffect(self.activeIndex != index && self.active ? 0.5 : 1)
+                                        .offset(x: self.activeIndex != index && self.active ? bounds.size.width : 0)
+                                }
+                                // This adapts the ability to the cards to stack when the screen size is large, otherwise the normal layout
+                                .frame(height : horizontalSizeClass == .regular ? 80 : 280)
+                                .frame(maxWidth: self.store.courses[index].show ? 712 : getCardWidth(bounds: bounds))
+                                // This ZIndex Helps correct the Layout of cards showing on top of others during animation
+                                .zIndex(self.store.courses[index].show ? 1 : 0)
+                            }
+                        }
  
                     }
                     .frame(width: bounds.size.width)
@@ -45,6 +75,8 @@ struct CourseList: View {
                     // Upon gesture tap to the full view, the status bar will be hidden
                     .statusBar(hidden: active ? true : false)
                     .animation(.linear)
+                    // Disable the ability for the scrolling and animation to not activate during the 0.7 Second delay 
+                    .disabled(self.active && !self.isScrollable ? true : false)
                 }
             }
         }
@@ -92,6 +124,7 @@ struct CourseView: View {
     var index: Int
     @Binding var activeView: CGSize
     var bounds: GeometryProxy
+    @Binding var isScrollable: Bool
    
     
     
@@ -110,10 +143,11 @@ struct CourseView: View {
                 Text("Minimal coding experience required, such as in HTML and CSS. Please note that Xcode 11 and Catalina are essential. Once you get everything installed, it'll get a lot friendlier! I added a bunch of troubleshoots at the end of this page to help you navigate the issues you might encounter.")
                 
             }
+            .animation(nil)
             .padding(30)
             .frame(maxWidth: show ? .infinity : screen.width - 60, maxHeight: show ? .infinity : CGFloat(200), alignment: .top)
             .offset(y: show ? 460 : 0)
-            .background(Color("background2"))
+            .background(Color("background1"))
             .clipShape(RoundedRectangle(cornerRadius: show ? getCardCornerRadius(bounds: bounds) : 30, style: .continuous))
             .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)
             .opacity(show ? 1 : 0)
@@ -142,6 +176,7 @@ struct CourseView: View {
                         .background(Color.black)
                         .clipShape(Circle())
                         .opacity(show ? 1 : 0 )
+                        .offset(x :2, y: -2)
                     }
                 }
                 Spacer()
@@ -155,9 +190,10 @@ struct CourseView: View {
             }
             .padding(show ? 30 : 20)
             .padding(show ? 30 : 0)
-            .frame(maxWidth: show ? .infinity : screen.width - 60, maxHeight: show ? 460 :  CGFloat(280))
+            .frame(maxWidth: show ? .infinity : bounds.size.width - 60)
+            .frame(height: show ? 460 :  CGFloat(280))
             .background(Color(course.color))
-            .clipShape(RoundedRectangle(cornerRadius: show ? getCardCornerRadius(bounds: bounds) : 30, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: getCardCornerRadius(bounds: bounds), style: .continuous))
             .shadow(color: Color(course.color).opacity(0.3), radius: 20, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 20)
             
             // This gives the ability for the translation value on the drag gesture to be represented upon dragging
@@ -186,6 +222,7 @@ struct CourseView: View {
                         self.show = false
                         self.active = false
                         self.activeIndex = -1
+                        self.isScrollable = false
                         
                     }
                     
@@ -207,17 +244,26 @@ struct CourseView: View {
                     self.activeIndex = -1
                     
                 }
+                // This will delay the animation so the animation and scrollview do not come at that same time
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    
+                    self.isScrollable = true
+                }
             }
             
-            if show {
+            if isScrollable {
                 // When this is enabled, and the self.activeView = value.translation is disabled, there will not be gestures but will be able to present a scrollable detail view from CourseDetail and exited without gestures. 
                 
-//                CourseDetail(course: course, show: $show, active: $active, activeIndex: $activeIndex)
-//                    .background(Color.white)
-//                    .animation(nil)
+                CourseDetail(course: course, show: $show, active: $active, activeIndex: $activeIndex, isScrollable: $isScrollable, bounds: bounds)
+                    .background(Color.white)
+                    // This adds the corner radius to the CourseDetail view that is scrollable and adaptive to device
+                    .clipShape(RoundedRectangle(cornerRadius: show ? getCardCornerRadius(bounds: bounds) : 30, style: .continuous))
+                    .animation(nil)
+                    .transition(.identity)
                 
             }
         }
+     
         .frame(height: show ? bounds.size.height + bounds.safeAreaInsets.top
                 + bounds.safeAreaInsets.bottom: 280)
         // The added scale effect is for the drag gesture of the animation
@@ -241,7 +287,7 @@ struct CourseView: View {
                 
                 // This guard statement lets the drag animations to not take place upon dragging up on the screen
                 
-                guard value.translation.height > 0 else { return }
+                guard value.translation.height > 50 else { return }
                 
                 self.activeView = value.translation
                 
@@ -255,6 +301,7 @@ struct CourseView: View {
                     self.show = false
                     self.active = false
                     self.activeIndex = -1
+                    self.isScrollable = false
                     
                 }
                 
@@ -265,6 +312,7 @@ struct CourseView: View {
             : nil
         
         )
+        .disabled(active && !isScrollable ? true : false)
         .ignoresSafeArea(.all)
     }
 }
