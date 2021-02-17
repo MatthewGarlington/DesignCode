@@ -19,7 +19,6 @@
 		6B298C2125DBF879006F728A /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298C2025DBF879006F728A /* LottieView.swift */; };
 		6B298C2325DC0DCB006F728A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298C2225DC0DCB006F728A /* LoadingView.swift */; };
 		6B3630C425DD4ACB00DC8D65 /* Pods_Design_CodeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A11A1F576F1DDA37D8BDA755 /* Pods_Design_CodeApp.framework */; };
-		6B3630C525DD4ACB00DC8D65 /* Pods_Design_CodeApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A11A1F576F1DDA37D8BDA755 /* Pods_Design_CodeApp.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6B58F06A25DC1316001E97C5 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B58F06825DC1316001E97C5 /* loading.json */; };
 		6B58F06B25DC1316001E97C5 /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B58F06925DC1316001E97C5 /* success.json */; };
 		6B58F06D25DC1A20001E97C5 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B58F06C25DC1A20001E97C5 /* SuccessView.swift */; };
@@ -44,20 +43,6 @@
 		6BA973C725D9796600D61339 /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA973C625D9796600D61339 /* PostList.swift */; };
 		6BBC490A25DC50BF00030909 /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBC490925DC50BF00030909 /* UserStore.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		6B3630C625DD4ACB00DC8D65 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6B3630C525DD4ACB00DC8D65 /* Pods_Design_CodeApp.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		281A9E9959145185E5D54A7E /* Pods-Design+CodeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Design+CodeApp.release.xcconfig"; path = "Target Support Files/Pods-Design+CodeApp/Pods-Design+CodeApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -215,7 +200,6 @@
 				6B9B2F2025D6BF66008A6614 /* Frameworks */,
 				6B9B2F2125D6BF66008A6614 /* Resources */,
 				AF2E0421BC38B271F258DE97 /* [CP] Embed Pods Frameworks */,
-				6B3630C625DD4ACB00DC8D65 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
