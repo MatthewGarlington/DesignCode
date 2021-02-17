@@ -37,27 +37,7 @@ struct CourseList: View {
                             .padding(.top, 30)
                             // Blurs the top title upon hitting the tap gesture to active on selecting a card
                             .blur(radius: active ? 20 : 0)
-                        // Using the store before usees the observable object of the Contentful API and Combine instead of from our on array
-                        ForEach(store.courses.indices, id: \.self) { index in
-                            GeometryReader { geometry in
-                                CourseView(
-                                    show: self.$store.courses[index].show,
-                                    active: self.$active, activeIndex: self.$activeIndex, course: self.store.courses[index],
-                                    index: index,
-                                    // Added the ability to change the color of the background upon dragging
-                                    activeView: self.$activeView, bounds: bounds)
-                                    .offset(y: self.store.courses[index].show ? -geometry.frame(in: .global).minY : 0)
-                                    // The Following 3 animations occur in the other cards except the card that is pressed
-                                    .opacity(self.activeIndex != index && self.active ? 0 : 1)
-                                    .scaleEffect(self.activeIndex != index && self.active ? 0.5 : 1)
-                                    .offset(x: self.activeIndex != index && self.active ? bounds.size.width : 0)
-                            }
-                            // This adapts the ability to the cards to stack when the screen size is large, otherwise the normal layout
-                            .frame(height : horizontalSizeClass == .regular ? 80 : 280)
-                            .frame(maxWidth: self.store.courses[index].show ? 712 : getCardWidth(bounds: bounds))
-                            // This ZIndex Helps correct the Layout of cards showing on top of others during animation
-                            .zIndex(self.store.courses[index].show ? 1 : 0)
-                        }
+ 
                     }
                     .frame(width: bounds.size.width)
                     .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
