@@ -23,6 +23,7 @@ struct HomeView: View {
     var body: some View {
         GeometryReader { bounds in
             ScrollView {
+              
                 VStack {
                     HStack {
                         Text("Watching")
@@ -138,6 +139,7 @@ struct HomeView: View {
     
         }
         .disabled(self.active && !self.isScrollable ? true : false)
+        
         }
     }
 }
