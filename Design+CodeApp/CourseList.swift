@@ -14,58 +14,88 @@ struct CourseList: View {
     @State var active = false
     @State var activeIndex = -1
     @State var activeView = CGSize.zero
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        ZStack {
-            
-            // Sets background to change colors upon full screen tap gesture
-            
-            Color.black.opacity(Double(self.activeView.height) / 500)
-                .animation(.linear)
-                .edgesIgnoringSafeArea(.all)
-       
-            ScrollView {
+        GeometryReader { bounds in
+            ZStack {
                 
-                VStack(spacing: 30) {
-                    Text("Courses")
-                        .font(.largeTitle)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 30)
-                        .padding(.top, 30)
-                        // Blurs the top title upon hitting the tap gesture to active on selecting a card
-                        .blur(radius: active ? 20 : 0)
-                    // Using the store before usees the observable object of the Contentful API and Combine instead of from our on array
-                    ForEach(store.courses.indices, id: \.self) { index in
-                        GeometryReader { geometry in
-                            CourseView(
-                                show: self.$store.courses[index].show,
-                                active: self.$active, activeIndex: self.$activeIndex, course: self.store.courses[index],
-                                index: index,
-                                // Added the ability to change the color of the background upon dragging
-                                activeView: self.$activeView)
-                                .offset(y: self.store.courses[index].show ? -geometry.frame(in: .global).minY : 0)
-                                // The Following 3 animations occur in the other cards except the card that is pressed
-                                .opacity(self.activeIndex != index && self.active ? 0 : 1)
-                                .scaleEffect(self.activeIndex != index && self.active ? 0.5 : 1)
-                                .offset(x: self.activeIndex != index && self.active ? screen.width : 0)
+                // Sets background to change colors upon full screen tap gesture
+                
+                Color.black.opacity(Double(self.activeView.height) / 500)
+                    .animation(.linear)
+                    .edgesIgnoringSafeArea(.all)
+           
+                ScrollView {
+                    
+                    VStack(spacing: 30) {
+                        Text("Courses")
+                            .font(.largeTitle)
+                            .bold()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 30)
+                            .padding(.top, 30)
+                            // Blurs the top title upon hitting the tap gesture to active on selecting a card
+                            .blur(radius: active ? 20 : 0)
+                        // Using the store before usees the observable object of the Contentful API and Combine instead of from our on array
+                        ForEach(store.courses.indices, id: \.self) { index in
+                            GeometryReader { geometry in
+                                CourseView(
+                                    show: self.$store.courses[index].show,
+                                    active: self.$active, activeIndex: self.$activeIndex, course: self.store.courses[index],
+                                    index: index,
+                                    // Added the ability to change the color of the background upon dragging
+                                    activeView: self.$activeView, bounds: bounds)
+                                    .offset(y: self.store.courses[index].show ? -geometry.frame(in: .global).minY : 0)
+                                    // The Following 3 animations occur in the other cards except the card that is pressed
+                                    .opacity(self.activeIndex != index && self.active ? 0 : 1)
+                                    .scaleEffect(self.activeIndex != index && self.active ? 0.5 : 1)
+                                    .offset(x: self.activeIndex != index && self.active ? bounds.size.width : 0)
+                            }
+                            // This adapts the ability to the cards to stack when the screen size is large, otherwise the normal layout
+                            .frame(height : horizontalSizeClass == .regular ? 80 : 280)
+                            .frame(maxWidth: self.store.courses[index].show ? 712 : getCardWidth(bounds: bounds))
+                            // This ZIndex Helps correct the Layout of cards showing on top of others during animation
+                            .zIndex(self.store.courses[index].show ? 1 : 0)
                         }
-                        .frame(height : 280)
-                        .frame(maxWidth: self.store.courses[index].show ? .infinity : screen.width - 60)
-                        // This ZIndex Helps correct the Layout of cards showing on top of others during animation
-                        .zIndex(self.store.courses[index].show ? 1 : 0)
                     }
+                    .frame(width: bounds.size.width)
+                    .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+                    
+                    // Upon gesture tap to the full view, the status bar will be hidden
+                    .statusBar(hidden: active ? true : false)
+                    .animation(.linear)
                 }
-                .frame(width: screen.width)
-                .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
-                
-                // Upon gesture tap to the full view, the status bar will be hidden
-                .statusBar(hidden: active ? true : false)
-                .animation(.linear)
             }
         }
    
     }
+}
+
+// This function gives tha ability a condition within another condition to display the correct screen size for full screen card view on a larger display
+
+func getCardWidth(bounds: GeometryProxy) -> CGFloat {
+    
+    if bounds.size.width > 712 {
+        return 712 
+        
+    }
+    
+    return bounds.size.width - 60
+
+}
+
+ // This function allows the same ability to use within a condition but for the corner radius
+
+func getCardCornerRadius(bounds: GeometryProxy) -> CGFloat {
+
+    if bounds.size.width < 712 && bounds.safeAreaInsets.top < 44 {
+        return 0
+        
+    }
+
+    return 30
+
 }
 
 struct CourseList_Previews: PreviewProvider {
@@ -81,6 +111,7 @@ struct CourseView: View {
     var course: Course
     var index: Int
     @Binding var activeView: CGSize
+    var bounds: GeometryProxy
    
     
     
@@ -103,7 +134,7 @@ struct CourseView: View {
             .frame(maxWidth: show ? .infinity : screen.width - 60, maxHeight: show ? .infinity : CGFloat(200), alignment: .top)
             .offset(y: show ? 460 : 0)
             .background(Color("background2"))
-            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: show ? getCardCornerRadius(bounds: bounds) : 30, style: .continuous))
             .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)
             .opacity(show ? 1 : 0)
             
@@ -146,7 +177,7 @@ struct CourseView: View {
             .padding(show ? 30 : 0)
             .frame(maxWidth: show ? .infinity : screen.width - 60, maxHeight: show ? 460 :  CGFloat(280))
             .background(Color(course.color))
-            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: show ? getCardCornerRadius(bounds: bounds) : 30, style: .continuous))
             .shadow(color: Color(course.color).opacity(0.3), radius: 20, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 20)
             
             // This gives the ability for the translation value on the drag gesture to be represented upon dragging
@@ -207,7 +238,8 @@ struct CourseView: View {
                 
             }
         }
-        .frame(height: show ? screen.height : 280)
+        .frame(height: show ? bounds.size.height + bounds.safeAreaInsets.top
+                + bounds.safeAreaInsets.bottom: 280)
         // The added scale effect is for the drag gesture of the animation
         .scaleEffect(1 - self.activeView.height / 1000)
         // This allows the cards to rotate upon the drag gesture to either side
