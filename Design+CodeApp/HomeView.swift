@@ -11,6 +11,7 @@ struct HomeView: View {
     @Binding var showProfile: Bool
     @Binding var showContent: Bool
     @State var showUpdate = false
+    @Binding var viewState: CGSize
     
     
     var body: some View {
@@ -62,7 +63,7 @@ struct HomeView: View {
                             GeometryReader { geometry in
                                 SectionView(section: item)
                                     .rotation3DEffect(Angle(degrees:
-                                                                Double(geometry.frame(in: .global).minX - 30) / -20
+                                                                Double(geometry.frame(in: .global).minX - 30) / -getAngleMulitplier(bounds: bounds)
                                                         
                                     ), axis: (x: 0, y: 10.0, z: 0))
                             }
@@ -91,15 +92,35 @@ struct HomeView: View {
                 
                 
             }
+            
+            
             // Corrects the slide over layout on Ipad and Iphone SE Layout 
             .frame(width: bounds.size.width)
+            
+            .offset(y: showProfile ? -450 : 0)
+            .rotation3DEffect(Angle(degrees: showProfile ? Double(viewState.height / 10) - 10 : 0), axis: (x: 10.0, y: 0, z: 0))
+            .scaleEffect(showProfile ? 0.9 : 1)
+            .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+    
         }
     }
 }
 
+// Add Function to make angle of images less sharp on ipad
+
+func getAngleMulitplier(bounds: GeometryProxy) -> Double {
+    if bounds.size.width > 500 {
+        return 80
+    } else {
+        
+        return 20
+    }
+    
+}
+
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(showProfile: .constant(false), showContent: .constant(false)).environmentObject(UserStore())
+        HomeView(showProfile: .constant(false), showContent: .constant(false), viewState: .constant(.zero)).environmentObject(UserStore())
     }
 }
 
