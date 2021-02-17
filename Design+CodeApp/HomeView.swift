@@ -17,39 +17,42 @@ struct HomeView: View {
     @State var activeIndex = -1
     @State var activeView = CGSize.zero
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State var isScrollable = false
     
     
     var body: some View {
         GeometryReader { bounds in
             ScrollView {
-                HStack {
-                    Text("Watching")
-                      .font(.system(size: 28, weight: .bold))
-                     
-                    
-                    Spacer()
-                    
-                    AvatarView(showProfile: $showProfile)
-                    
-                    Button(action: {self.showUpdate.toggle()}) {
-                        Image(systemName: "bell")
-            //                .renderingMode(.original)
-                            .foregroundColor(.primary)
-                            .font(.system(size: 16, weight: .medium))
-                            .frame(width: 36, height: 36)
-                            .background(Color("background3"))
-                            .clipShape(Circle())
-                            .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
-                            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 10)
+                VStack {
+                    HStack {
+                        Text("Watching")
+                          .font(.system(size: 28, weight: .bold))
+                         
                         
+                        Spacer()
+                        
+                        AvatarView(showProfile: $showProfile)
+                        
+                        Button(action: {self.showUpdate.toggle()}) {
+                            Image(systemName: "bell")
+                //                .renderingMode(.original)
+                                .foregroundColor(.primary)
+                                .font(.system(size: 16, weight: .medium))
+                                .frame(width: 36, height: 36)
+                                .background(Color("background3"))
+                                .clipShape(Circle())
+                                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                                .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 10)
+                            
+                        }
+                        .sheet(isPresented: $showUpdate) {
+                           UpdateList()
+                        }
                     }
-                    .sheet(isPresented: $showUpdate) {
-                       UpdateList()
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.leading, 14)
-                .padding(.top, 30)
+                    .padding(.horizontal)
+                    .padding(.leading, 14)
+                    .padding(.top, 30)
+                
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     WatchRingsView()
@@ -102,7 +105,7 @@ struct HomeView: View {
                                 active: self.$active, activeIndex: self.$activeIndex, course: self.store.courses[index],
                                 index: index,
                                 // Added the ability to change the color of the background upon dragging
-                                activeView: self.$activeView, bounds: bounds)
+                                activeView: self.$activeView, bounds: bounds, isScrollable: $isScrollable)
                                 .offset(y: self.store.courses[index].show ? -geometry.frame(in: .global).minY : 0)
                                 // The Following 3 animations occur in the other cards except the card that is pressed
                                 .opacity(self.activeIndex != index && self.active ? 0 : 1)
@@ -133,6 +136,8 @@ struct HomeView: View {
             .scaleEffect(showProfile ? 0.9 : 1)
             .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
     
+        }
+        .disabled(self.active && !self.isScrollable ? true : false)
         }
     }
 }
