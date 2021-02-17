@@ -31,7 +31,7 @@ struct Design_CodeAppApp: App {
    
     var body: some Scene {
         WindowGroup {
-            Home()
+            CourseList()
                 .environmentObject(UserStore())
             
         }
