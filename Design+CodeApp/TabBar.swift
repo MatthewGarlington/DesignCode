@@ -21,12 +21,12 @@ struct TabBar: View {
                 
             }
         }
-        .edgesIgnoringSafeArea(.top)
+        //.edgesIgnoringSafeArea(.top)
     }
 }
 
 struct TabBar_Previews: PreviewProvider {
     static var previews: some View {
-        TabBar()
+        TabBar().environmentObject(UserStore())
     }
 }
