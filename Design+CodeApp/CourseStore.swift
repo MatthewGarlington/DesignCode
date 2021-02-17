@@ -22,7 +22,7 @@ func getArray(id: String, completion: @escaping([Entry]) -> ()) {
         
         switch result {
         case .success(let array) :
-            completion(array.items)
+            //completion(array.items)
             // Repeat the completeion handler so that the data can be used througout the project
             DispatchQueue.main.async {
                 completion(array.items)
@@ -39,7 +39,7 @@ func getArray(id: String, completion: @escaping([Entry]) -> ()) {
 
 class CourseStore: ObservableObject {
     
-    @Published var courses: [Course] = courseData
+    @Published var courses: [Course] = []
     
     // Make the Contentful API Call
     init() {
