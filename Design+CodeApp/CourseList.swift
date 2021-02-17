@@ -255,7 +255,7 @@ struct CourseView: View {
                 // When this is enabled, and the self.activeView = value.translation is disabled, there will not be gestures but will be able to present a scrollable detail view from CourseDetail and exited without gestures. 
                 
                 CourseDetail(course: course, show: $show, active: $active, activeIndex: $activeIndex, isScrollable: $isScrollable, bounds: bounds)
-                    .background(Color.white)
+                    .background(Color("background1"))
                     // This adds the corner radius to the CourseDetail view that is scrollable and adaptive to device
                     .clipShape(RoundedRectangle(cornerRadius: show ? getCardCornerRadius(bounds: bounds) : 30, style: .continuous))
                     .animation(nil)
