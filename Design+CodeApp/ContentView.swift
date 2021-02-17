@@ -32,7 +32,8 @@ struct ContentView: View {
                 )
             
             BackCardView()
-                .frame(width: 340, height: 220)
+                .frame(maxWidth: showCard ? 300 : CGFloat(340))
+                .frame(height: 220)
                 .background(show ? Color("card3") : Color("card4"))
                 .cornerRadius(20)
                 .shadow(radius: 20)
@@ -47,7 +48,8 @@ struct ContentView: View {
                 .animation(.easeInOut(duration: 0.5))
 
             BackCardView()
-                .frame(width: 340, height: 220)
+                .frame(maxWidth: 340)
+                .frame(height: 220)
                 .background(show ? Color("card4") : Color("card3"))
                 .cornerRadius(20)
                 .shadow(radius: 20)
@@ -63,7 +65,8 @@ struct ContentView: View {
                 
             
             CardView()
-                .frame(width: 345, height: 220)
+                .frame(maxWidth: showCard ? 375 : 340)
+                .frame(height: 220)
                 .background(Color.black)
   //              .cornerRadius(20)
                 .clipShape(RoundedRectangle(cornerRadius: showCard ? 30 : 20, style: .continuous))
@@ -97,51 +100,54 @@ struct ContentView: View {
                 )
  
           
-            BottomCardView(show: $showCard)
-                .offset(x: 0, y: showCard ? 360 : 1000)
-                .offset(y: bottomState.height)
-                .blur(radius: show ? 20 : 0)
-                .animation(.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.8))
-            
-                .gesture(
+            GeometryReader { bounds in
+                BottomCardView(show: $showCard)
+                    // This adapts the offset to the screen height for the bottom card across different devices
+                    .offset(x: 0, y: showCard ? bounds.size.height / 2 : bounds.size.height + bounds.safeAreaInsets.top + bounds.safeAreaInsets.bottom
+                    )
+                    .offset(y: bottomState.height)
+                    .blur(radius: show ? 20 : 0)
+                    .animation(.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.8))
                 
-                    DragGesture().onChanged { value in
-                        
-                        self.bottomState = value.translation
-                        
-                        if self.showFull {
-                        self.bottomState.height += -300
-                        
-                        
-                        }
-                        
-                        if self.bottomState.height < -300 {
-                            
-                            self.bottomState.height = -600
-                        }
-                    }
+                    .gesture(
                     
-                    .onEnded { value in
-                        
-                        if self.bottomState.height > 50 {
-                            self.showCard = false
+                        DragGesture().onChanged { value in
+                            
+                            self.bottomState = value.translation
+                            
+                            if self.showFull {
+                            self.bottomState.height += -300
+                            
+                            
+                            }
+                            
+                            if self.bottomState.height < -300 {
+                                
+                                self.bottomState.height = -600
+                            }
                         }
-                        if (self.bottomState.height < -100 && !self.showFull) || (self.bottomState.height < -250 && self.showFull) {
-                            
-                            self.bottomState.height = -300
-                            self.showFull = true
-                            
-                        } else {
-                            
-                            self.bottomState = .zero
-                            self.showFull = false
-                        }
                         
-                    }
-                
+                        .onEnded { value in
+                            
+                            if self.bottomState.height > 50 {
+                                self.showCard = false
+                            }
+                            if (self.bottomState.height < -100 && !self.showFull) || (self.bottomState.height < -250 && self.showFull) {
+                                
+                                self.bottomState.height = -300
+                                self.showFull = true
+                                
+                            } else {
+                                
+                                self.bottomState = .zero
+                                self.showFull = false
+                            }
+                            
+                        }
+                    
                 )
-              
-           
+            }
+   
         }
     }
 }
@@ -195,11 +201,15 @@ struct TitleView: View {
                 Text("Certificates")
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .frame(maxWidth: 375)
                 Spacer()
             }
             .padding()
             
             Image("Background1")
+            // Make the image resizable for different displays
+                .resizable()
+                .aspectRatio(contentMode: .fit)
             Spacer()
             
         }
@@ -245,12 +255,15 @@ struct BottomCardView: View {
         }
         .padding(.top, 8)
         .padding(.horizontal, 20)
-        .frame(maxWidth: .infinity)
+        // Lets the bottom card with the Text Field to not take up the entire width of the screen
+        .frame(maxWidth: 712)
         .frame(height: 800)
         // Adding the BlurView Modifer to give a glass appearance 
         .background(BlurView(style: .systemThinMaterial))
         .cornerRadius(30)
         .shadow(radius: 20)
+        // This centers the change of the bottom card
+        .frame(maxWidth: .infinity)
        
     }
 }
