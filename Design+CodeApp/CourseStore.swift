@@ -37,6 +37,33 @@ func getArray(id: String, completion: @escaping([Entry]) -> ()) {
     }
 }
 
+// Add Section Array
+
+func getSectionArray(id: String, completion: @escaping([Entry]) -> ()) {
+    
+    let query = Query.where(contentTypeId: "section")
+    
+    client.fetchArray(of: Entry.self, matching: query) { result in
+        
+        // Here Using the documentation from contentful to use a switch statement to to recieve the items array from contentful
+        
+        switch result {
+        case .success(let array) :
+
+            // Repeat the completeion handler so that the data can be used througout the project
+            DispatchQueue.main.async {
+                completion(array.items)
+            }
+       
+        case .failure(let error) :
+            print(error)
+            
+        
+        }
+        
+    }
+}
+
 class CourseStore: ObservableObject {
     
     @Published var courses: [Course] = []
@@ -61,6 +88,11 @@ class CourseStore: ObservableObject {
                                            color: colors[index],
                                            show: false))
                 
+                index = index + 1
+            }
+        }
+        getSectionArray(id: "section") { (items) in
+            items.forEach { (item) in
                 index = index + 1
                 self.sections.append(Section(title:  item.fields["title"] as! String,
                                              text: item.fields["subtitle"] as! String,
