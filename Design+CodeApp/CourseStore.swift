@@ -10,7 +10,7 @@ import Contentful
 import Combine
 
 
-let client = Client(spaceId: "jeq8io41y7m4", accessToken: "GgbVB3YT5SpC4Je6egEp9RcWs9lkPispB6XWEgEunlw")
+let client = Client(spaceId: spaceID, accessToken: accessToken)
 
 func getArray(id: String, completion: @escaping([Entry]) -> ()) {
     
