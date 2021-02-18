@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct HomeView: View {
     @Binding var showProfile: Bool
@@ -68,10 +69,12 @@ struct HomeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     
                     HStack(spacing: 20) {
-                        ForEach(sectionData) { item in
-                            
-                            GeometryReader { geometry in
-                                SectionView(section: item)
+                            // This gives the top SecitonView the ability to link to Contentful 
+                            ForEach(store.sections.indices, id: \.self) { index in
+                                GeometryReader { geometry in
+                                    
+                                    SectionView(index: index, section: self.store.sections[index], width: 275, height: 275)
+                                    
                                     .rotation3DEffect(Angle(degrees:
                                                                 Double(geometry.frame(in: .global).minX - 30) / -getAngleMulitplier(bounds: bounds)
                                                         
@@ -163,9 +166,12 @@ struct HomeView_Previews: PreviewProvider {
 }
 
 struct SectionView: View {
+//    @ObservedObject var store = CourseStore()
+    var index: Int
     var section: Section
     var width: CGFloat = 275
     var height: CGFloat = 275
+  
     
     var body: some View {
         VStack {
@@ -175,12 +181,12 @@ struct SectionView: View {
                     .frame(width: 160, alignment: .leading)
                     .foregroundColor(.white)
                 Spacer()
-                Image(section.logo)
+                Image(uiImage: section.logo)
                 
             }
             Text(section.text.uppercased())
                 .frame(maxWidth: .infinity, alignment: .leading)
-            section.image
+            WebImage(url: section.image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 210)
@@ -197,17 +203,16 @@ struct Section: Identifiable {
     var id = UUID()
     var title: String
     var text: String
-    var logo: String
-    var image: Image
+    var image: URL
+    var logo: UIImage
     var color: Color
     
     
 }
 
 let sectionData = [
-    Section(title: "Prototype designs in SwiftUI", text: "18 Sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card1")), color: Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1))),
-    Section(title: "Build a SwiftUI app", text: "20 Sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card4")), color: Color(#colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1))),
-    Section(title: "SwiftUI Advanced", text: "20 Sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card3")), color: Color(#colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1))),
+    Section(title: "", text: "", image: URL(string: "https://dl.dropbox.com/s/plbdsvq889yyc4v/Card2%402x.png?dl=0")!, logo: #imageLiteral(resourceName: "Logo1"), color: .blue),
+ 
     
 ]
 
