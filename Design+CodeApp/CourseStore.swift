@@ -22,7 +22,7 @@ func getArray(id: String, completion: @escaping([Entry]) -> ()) {
         
         switch result {
         case .success(let array) :
-            //completion(array.items)
+
             // Repeat the completeion handler so that the data can be used througout the project
             DispatchQueue.main.async {
                 completion(array.items)
@@ -40,11 +40,13 @@ func getArray(id: String, completion: @escaping([Entry]) -> ()) {
 class CourseStore: ObservableObject {
     
     @Published var courses: [Course] = []
+    @Published var sections: [Section] = []
     
     // Make the Contentful API Call
     init() {
         // Add color literal array to randomize colors
-        let colors = [#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1), #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1) ]
+        let colors = [#colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1), #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1), #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1) ]
+    
         var index = 0
         
         getArray(id: "course") { (items) in
@@ -59,7 +61,13 @@ class CourseStore: ObservableObject {
                                            color: colors[index],
                                            show: false))
                 
-               index = index + 1
+                index = index + 1
+                self.sections.append(Section(title:  item.fields["title"] as! String,
+                                             text: item.fields["subtitle"] as! String,
+                                             image: item.fields.linkedAsset(at: "image")?.url ?? URL(string: "https://dl.dropbox.com/s/9vvklb94vpaafxw/Card3%402x.png?dl=0")!,
+                                             logo: #imageLiteral(resourceName: "Logo1"),
+                                             color: .blue))
+         
                 
             }
         }
