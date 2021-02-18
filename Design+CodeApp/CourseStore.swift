@@ -10,7 +10,7 @@ import Contentful
 import Combine
 
 
-let client = Client(spaceId: spaceID, accessToken: accessToken)
+let client = Client(spaceId: contentfulSpaceId, accessToken: contentfulKey)
 
 func getArray(id: String, completion: @escaping([Entry]) -> ()) {
     
@@ -93,7 +93,7 @@ class CourseStore: ObservableObject {
         }
         getSectionArray(id: "section") { (items) in
             items.forEach { (item) in
-                index = index + 1
+          
                 self.sections.append(Section(title:  item.fields["title"] as! String,
                                              text: item.fields["subtitle"] as! String,
                                              image: item.fields.linkedAsset(at: "image")?.url ?? URL(string: "https://dl.dropbox.com/s/9vvklb94vpaafxw/Card3%402x.png?dl=0")!,
